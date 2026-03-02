@@ -1,7 +1,7 @@
 {
   "id": "263ccaac-3bfd-414b-a1b7-20abb5426e0c",
-  "name": "1st AYD Cust",
-  "publisher": "Default Publisher",
+  "name": "1st AYD Functionality",
+  "publisher": "1st AYD",
   "version": "1.0.0.0",
   "brief": "",
   "description": "",
@@ -16,8 +16,8 @@
   "application": "14.0.0.0",
   "idRanges": [
     {
-      "from": 50100,
-      "to": 50149
+      "from": 50000,
+      "to": 99999
     }
   ],
   "showMyCode": true,
