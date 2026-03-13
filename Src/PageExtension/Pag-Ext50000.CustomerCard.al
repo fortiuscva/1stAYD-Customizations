@@ -1,4 +1,4 @@
-pageextension 50000 "AYD CustomerCardSureTaxExt" extends "Customer Card"
+pageextension 50000 "AYD Customer Card" extends "Customer Card"
 {
     layout
     {

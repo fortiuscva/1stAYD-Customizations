@@ -1,6 +1,6 @@
-pageextension 50002 "AYD SalesOrderSureTaxExt" extends "Sales Order"
+tableextension 50002 "AYD Sales Header" extends "Sales Header"
 {
-    layout
+    fields
     {
         modify("Approved by Salesperson")
         {

@@ -1,4 +1,4 @@
-tableextension 50000 "AYD CustomerSureTaxExt" extends Customer
+tableextension 50000 "AYD Customer" extends Customer
 {
     fields
     {

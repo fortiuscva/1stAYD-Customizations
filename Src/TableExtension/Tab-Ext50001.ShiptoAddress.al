@@ -1,4 +1,4 @@
-tableextension 50001 "AYD ShipToSureTaxExt" extends "Ship-to Address"
+tableextension 50001 "AYD Ship-to Address" extends "Ship-to Address"
 {
     fields
     {
