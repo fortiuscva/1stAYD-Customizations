@@ -10,7 +10,14 @@
   "help": "",
   "url": "",
   "logo": "",
-  "dependencies": [],
+  "dependencies": [ 
+     {
+      "appId": "10767cd3-dbac-45f2-b2af-53cdc106ff37",
+      "name": "CCH SureAddress for Dynamics Business Central",
+      "version": "14.9.39327.2021092401",
+      "publisher": "CCH Incorporated"
+    }  
+  ],
   "screenshots": [],
   "platform": "1.0.0.0",
   "application": "14.0.0.0",

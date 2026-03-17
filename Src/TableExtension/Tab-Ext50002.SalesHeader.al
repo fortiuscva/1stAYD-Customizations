@@ -1,6 +1,6 @@
-pageextension 50002 "AYD SalesOrderSureTaxExt" extends "Sales Order"
+tableextension 50002 "AYD Sales Header" extends "Sales Header"
 {
-    layout
+    fields
     {
         modify("Approved by Salesperson")
         {
@@ -9,6 +9,10 @@ pageextension 50002 "AYD SalesOrderSureTaxExt" extends "Sales Order"
                 Cust: Record Customer;
                 ShipTo: Record "Ship-to Address";
             begin
+                if SingleInstanceCU.GetFromAddressValidation() then
+                    exit;
+
+
                 if not Rec."Approved by Salesperson" then
                     exit;
 
@@ -28,4 +32,6 @@ pageextension 50002 "AYD SalesOrderSureTaxExt" extends "Sales Order"
             end;
         }
     }
+    var
+        SingleInstanceCU: Codeunit "AYD Single Instance";
 }

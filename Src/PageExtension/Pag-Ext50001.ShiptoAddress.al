@@ -1,4 +1,4 @@
-pageextension 50001 "AYD ShipToSureTaxPageExt" extends "Ship-to Address"
+pageextension 50001 "AYD Ship-to Address" extends "Ship-to Address"
 {
     layout
     {
@@ -12,7 +12,6 @@ pageextension 50001 "AYD ShipToSureTaxPageExt" extends "Ship-to Address"
             field("AYD SureTax Address Validated"; Rec."AYD SureTax Address Validated")
             {
                 ApplicationArea = all;
-                Editable = false;
             }
         }
     }
