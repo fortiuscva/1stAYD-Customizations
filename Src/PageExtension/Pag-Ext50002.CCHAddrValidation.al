@@ -9,10 +9,10 @@ pageextension 50002 "AYD CCH Addr. Validation" extends "CCH Addr. Validation"
                 SingleInstanceCU.SetFromAddressValidation(true);
             end;
 
-            trigger OnAfterAction()
-            begin
-                SingleInstanceCU.SetFromAddressValidation(false);
-            end;
+            // trigger OnAfterAction()
+            // begin
+            //     SingleInstanceCU.SetFromAddressValidation(false);
+            // end;
         }
         modify(Reject)
         {
@@ -21,10 +21,10 @@ pageextension 50002 "AYD CCH Addr. Validation" extends "CCH Addr. Validation"
                 SingleInstanceCU.SetFromAddressValidation(true);
             end;
 
-            trigger OnAfterAction()
-            begin
-                SingleInstanceCU.SetFromAddressValidation(false);
-            end;
+            // trigger OnAfterAction()
+            // begin
+            //     SingleInstanceCU.SetFromAddressValidation(false);
+            // end;
         }
     }
 

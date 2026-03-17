@@ -20,42 +20,43 @@ codeunit 50003 "AYD Events and Subscribers"
         FromAddressValidation: Boolean;
     begin
         FromAddressValidation := SingleInstanceCU.GetFromAddressValidation();
-        //Error('%1', FromAddressValidation);
-        //if FromAddressValidation then begin
-        TodayDate := Today;
-        TableID := RecRef.Number;
-        if TableID = Database::Customer then begin
-            if (Format(RecRef.Field(14083551).Value) = 'Yes') then begin
-                AYDSureTaxAddrVerified := true;
-                SureTaxAddrValidFieldRef := RecRef.Field(50014);
-                SureTaxAddrValidFieldRef.Value(TodayDate);
-
-                AYDSureTaxAddrVerFieldRec := RecRef.Field(50066);
-                AYDSureTaxAddrVerFieldRec.Value(AYDSureTaxAddrVerified);
-                //RecRef.Modify(false);
-            end else begin
-                AYDSureTaxAddrVerified := false;
-                AYDSureTaxAddrVerFieldRec := RecRef.Field(50066);
-                AYDSureTaxAddrVerFieldRec.Value(AYDSureTaxAddrVerified);
-                //RecRef.Modify(false);
-            end;
-        end else
-            if TableID = Database::"Ship-to Address" then begin
+        //Message('%1', FromAddressValidation);
+        if FromAddressValidation then begin
+            TodayDate := Today;
+            TableID := RecRef.Number;
+            if TableID = Database::Customer then begin
                 if (Format(RecRef.Field(14083551).Value) = 'Yes') then begin
                     AYDSureTaxAddrVerified := true;
-                    SureTaxAddrValidFieldRef := RecRef.Field(50100);
+                    SureTaxAddrValidFieldRef := RecRef.Field(50014);
                     SureTaxAddrValidFieldRef.Value(TodayDate);
 
-                    AYDSureTaxAddrVerFieldRec := RecRef.Field(50101);
+                    AYDSureTaxAddrVerFieldRec := RecRef.Field(50066);
                     AYDSureTaxAddrVerFieldRec.Value(AYDSureTaxAddrVerified);
                     //RecRef.Modify(false);
                 end else begin
                     AYDSureTaxAddrVerified := false;
-                    AYDSureTaxAddrVerFieldRec := RecRef.Field(50101);
+                    AYDSureTaxAddrVerFieldRec := RecRef.Field(50066);
                     AYDSureTaxAddrVerFieldRec.Value(AYDSureTaxAddrVerified);
+                    //RecRef.Modify(false);
                 end;
-                //end;
-            end;
+            end else
+                if TableID = Database::"Ship-to Address" then begin
+                    if (Format(RecRef.Field(14083551).Value) = 'Yes') then begin
+                        AYDSureTaxAddrVerified := true;
+                        SureTaxAddrValidFieldRef := RecRef.Field(50100);
+                        SureTaxAddrValidFieldRef.Value(TodayDate);
+
+                        AYDSureTaxAddrVerFieldRec := RecRef.Field(50101);
+                        AYDSureTaxAddrVerFieldRec.Value(AYDSureTaxAddrVerified);
+                        //RecRef.Modify(false);
+                    end else begin
+                        AYDSureTaxAddrVerified := false;
+                        AYDSureTaxAddrVerFieldRec := RecRef.Field(50101);
+                        AYDSureTaxAddrVerFieldRec.Value(AYDSureTaxAddrVerified);
+                    end;
+                end;
+            SingleInstanceCU.SetFromAddressValidation(false);
+        end;
     end;
 
     // [EventSubscriber(ObjectType::Table, Database::Customer, 'OnAfterModifyEvent', '', false, false)]
