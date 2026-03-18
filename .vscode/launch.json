@@ -6,9 +6,10 @@
             "request": "launch",
             "type": "al",
             "environmentType": "OnPrem",
-            "server": "http://bcserver",
-            "serverInstance": "BC",
-            "authentication": "UserPassword",
+            "server": "http://localhost:8081",
+            "serverInstance": "Dev",
+            "authentication": "Windows",
+            "port": 9049,
             "startupObjectId": 22,
             "startupObjectType": "Page",
             "breakOnError": "All",
@@ -16,7 +17,7 @@
             "enableLongRunningSqlStatements": true,
             "enableSqlInformationDebugger": true,
             "tenant": "default",
-            "usePublicURLFromServer": true
+            "schemaUpdateMode": "ForceSync"
         }
     ]
 }
