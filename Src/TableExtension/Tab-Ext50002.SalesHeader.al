@@ -31,6 +31,21 @@ tableextension 50002 "AYD Sales Header" extends "Sales Header"
                 end;
             end;
         }
+        modify("Ship-to Code")
+        {
+            trigger OnBeforeValidate()
+            var
+                ShipTo: Record "Ship-to Address";
+            begin
+                if Rec."Ship-to Code" <> '' then begin
+                    if ShipTo.Get(Rec."Sell-to Customer No.", Rec."Ship-to Code") then begin
+                        if not ShipTo."AYD SureTax Address Verified" then
+                            Error(
+                              'Sure Tax Address is not Validated. Please click on Sell-To and Ship-To Address Validation button on the order.');
+                    end;
+                end;
+            end;
+        }
     }
     var
         SingleInstanceCU: Codeunit "AYD Single Instance";
