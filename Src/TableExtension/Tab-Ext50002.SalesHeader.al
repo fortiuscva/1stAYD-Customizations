@@ -44,9 +44,21 @@ tableextension 50002 "AYD Sales Header" extends "Sales Header"
                 end;
             end;
         }
+        modify("Sell-to Customer No.")
+        {
+            trigger OnBeforeValidate()
+            var
+                Cust: Record Customer;
+            begin
+                if Cust.Get(Rec."Sell-to Customer No.") then begin
+                    if not Cust."AYD SureTax Address Verified" then
+                        Error(StrSubstNo(CustomerAddressNotValidatedMsg, Cust."No."));
+                end;
+            end;
+        }
     }
     var
         SingleInstanceCU: Codeunit "AYD Single Instance";
         ShipToCodeAddressNotValidatedMsg: Label 'Sure Tax Address on  is not Validated on Ship-to Address %1. Please click on "Address Validation" on Ship-to Address card.';
-        CustomerAddressNotValidatedMsg: Label 'Sure Tax Address on  is not Validated on Customer %1. Please click on "Address Validation" on to customer card.';
+        CustomerAddressNotValidatedMsg: Label 'Sure Tax Address is not validated on Customer %1. Please click on “Address Validation” on Customer card.';
 }
