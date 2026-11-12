@@ -18,11 +18,17 @@ tableextension 50002 "AYD Sales Header" extends "Sales Header"
 
                 if Rec."Ship-to Code" <> '' then begin
                     if ShipTo.Get(Rec."Sell-to Customer No.", Rec."Ship-to Code") then begin
+                        if ShouldSkipShipToSureTaxValidation(ShipTo) then
+                            exit;
+
                         if not ShipTo."AYD SureTax Address Verified" then
                             Error(StrSubstNo(ShipToCodeAddressNotValidatedMsg, Rec."Ship-to Code"));
                     end;
                 end else begin
                     if Cust.Get(Rec."Sell-to Customer No.") then begin
+                        if ShouldSkipCustomerSureTaxValidation(Cust) then
+                            exit;
+
                         if not Cust."AYD SureTax Address Verified" then
                             Error(StrSubstNo(CustomerAddressNotValidatedMsg, Cust."No."));
                     end;
@@ -37,16 +43,44 @@ tableextension 50002 "AYD Sales Header" extends "Sales Header"
             begin
                 if Rec."Ship-to Code" <> '' then begin
                     if ShipTo.Get(Rec."Sell-to Customer No.", Rec."Ship-to Code") then begin
+                        if ShouldSkipShipToSureTaxValidation(ShipTo) then
+                            exit;
+
                         if not ShipTo."AYD SureTax Address Verified" then
                             Error(StrSubstNo(ShipToCodeAddressNotValidatedMsg, Rec."Ship-to Code"));
-
                     end;
                 end;
             end;
         }
+        modify("Sell-to Customer No.")
+        {
+            trigger OnBeforeValidate()
+            var
+                Cust: Record Customer;
+            begin
+                if Cust.Get(Rec."Sell-to Customer No.") then begin
+                    if ShouldSkipCustomerSureTaxValidation(Cust) then
+                        exit;
+
+                    if not Cust."AYD SureTax Address Verified" then
+                        Error(StrSubstNo(CustomerAddressNotValidatedMsg, Cust."No."));
+                end;
+            end;
+        }
     }
+
+    local procedure ShouldSkipCustomerSureTaxValidation(Cust: Record Customer): Boolean
+    begin
+        exit(CopyStr(Cust."Tax Area Code", 1, 3) <> 'STX');
+    end;
+
+    local procedure ShouldSkipShipToSureTaxValidation(ShipTo: Record "Ship-to Address"): Boolean
+    begin
+        exit(CopyStr(ShipTo."Tax Area Code", 1, 3) <> 'STX');
+    end;
+
     var
         SingleInstanceCU: Codeunit "AYD Single Instance";
         ShipToCodeAddressNotValidatedMsg: Label 'Sure Tax Address on  is not Validated on Ship-to Address %1. Please click on "Address Validation" on Ship-to Address card.';
-        CustomerAddressNotValidatedMsg: Label 'Sure Tax Address on  is not Validated on Customer %1. Please click on "Address Validation" on to customer card.';
+        CustomerAddressNotValidatedMsg: Label 'Sure Tax Address is not validated on Customer %1. Please click on “Address Validation” on Customer card.';
 }
